@@ -41,3 +41,10 @@ For color, 0 is none. You can choose colors 1-100 as a value to change the visua
 ### Known issues:
 - Colors flicker occasionally due to the way the game updates values. Technically the most accurate depiction of when flags are active or not.
 - Allegedly the super armor indicator doesn't always work, like on some attacks that have super armor it wont recognize it idk tho cuz I gotta test that
+
+
+
+
+#### Changelog:
+
+- v0.1 Released
