@@ -1,4 +1,4 @@
-# Dark Souls 3 PVP Helper v0.1
+# Dark Souls 3 PVP Helper v0.1a
 ###### Special thanks to The Grim Sleeper, Gate, and Loki for their ideas and contributions
 ###### You can contact me on my Discord: https://discord.gg/naWBtMX
 
