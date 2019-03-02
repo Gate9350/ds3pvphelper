@@ -5,7 +5,7 @@ This is a pre-release version to fulfill the wishes of those that requested it, 
 
 
 ### What is it?
-The Dark Souls 3 PVP Helper is an open source tool which allows you to view frame data visually and on the fly while you are playing. This allows you to view things like active Super Armor frames, i-Frames from rolling, as well as block and parry frames. The tool is meant for learning and data gathering as well as visual feedback on the fly during gameplay to better grasp what goes on inside the game's data. It is open source so you can make your own changes and improvements to it as you see fit. I consider this a personal hobby project, updates may not come frequently.
+The Dark Souls 3 PVP Helper is an open source tool which allows you to view frame data visually and on the fly while you are playing. This allows you to view things like active Super Armor frames, i-Frames from rolling, as well as block and parry frames. The tool is meant for learning and data gathering as well as visual feedback during gameplay to better grasp what goes on inside the game's data. It is open source so you can make your own changes and improvements to it as you see fit. I consider this a personal hobby project, updates may not come frequently.
 
 
 ### How do I use it?
