@@ -1,0 +1,854 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="24">
+  <Forms>
+    <UDF1 Class="TCEForm" Encoding="Ascii85">MUT%.gFq0+7ii12*r([?@#zJ.O-y/,p%P6X5^vQVVGC2)WZ5Ch+u:.1=9rQ#.!^{*t+7}uZ?%w0pB7[D99,AJe.:SJdoQbC*)c?v(aXXq0GSu$d?)1%%K5hXuQH;.xwBkfR3uRk4+D{,NzimskK6euW[*iR3k]}QwN0=(F2J5Q^]OU8_HDr97ms=26R^IgiH)AZpk=1jg}lDGYOxBN;rsH3rtOxeDiQ]!k7Hr;2!_}nwL[!hJQ15GlYy{rW6jqQl/2ml!x_p3E*Q659oF1B52c2Bx,WuaUR#4%K}(XC((wqh?0*3gr56d6qAH*@L!-+-n[Dld7uBvRKviJaf4s%lpw:V_+_Xuk4MFErG+s+l</UDF1>
+  </Forms>
+  <CheatEntries>
+    <CheatEntry>
+      <ID>6</ID>
+      <Description>"Frame Color Initializer"</Description>
+      <Options moHideChildren="1"/>
+      <LastState/>
+      <Color>FF2109</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>// Refined way to establish base pointers
+// Thank loki for enlightening me of phokz's travesties
+
+[ENABLE]
+
+define(BaseB,DarkSoulsIII.exe+4768E78)
+registersymbol(BaseB)
+
+define(Param,DarkSoulsIII.exe+4782838)
+registersymbol(Param)
+
+[DISABLE]
+
+unregisterSymbol(BaseB)
+unregisterSymbol(Param)
+
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>80837</ID>
+          <Description>"Parry/Block/Hyper Armor/iFrames Color Indicator"</Description>
+          <Options moHideChildren="1"/>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>//Edited by Malcolm Reynolds :)
+//Idea by The Grim Sleeper  (Crossbow Extraordinaire)
+
+[ENABLE]
+globalalloc(ParryColor,4)
+globalalloc(BlockColor,4)
+globalalloc(HyperColor,4)
+globalalloc(iFrameColor,4)
+{$lua}
+if syntaxcheck then return end
+
+  local ParryiFrameBinary = "[[[[BaseB]+80]+1F90]+0]+58"
+  local Color = "[[[[Param]+13D8]+68]+68]+434"
+  local SuperArmorDurab = "[[[[BaseB]+80]+1F90]+48]+2C"
+
+function loop(timer)
+
+  Parry = readBytes(ParryiFrameBinary,1)
+  if Parry == 12 then
+  writeInteger(Color,readInteger("ParryColor")) --Writes color selected in header
+  else
+  writeInteger(Color, -1) --otherwise default color
+  end
+
+  Block = readBytes(ParryiFrameBinary,1)
+  if Block == 4 then
+  writeInteger(Color,readInteger("BlockColor")) --Writes color selected in header
+  end
+
+  SuperArmor = readFloat(SuperArmorDurab) --Reads SADurability value
+  if SuperArmor ~= 1 then --Sees if they are active
+  writeInteger(Color,readInteger("HyperColor")) --Writes color selected in header
+  end
+
+  iFrames = readBytes(ParryiFrameBinary,1) --Reads iFrames flag
+  if iFrames == 2 then
+  writeInteger(Color,readInteger("iFrameColor")) --Writes color selected in header
+  end
+
+end
+
+timer = createTimer()
+timer.OnTimer = loop
+timer.Interval = 1 --Time in Milliseconds (Works, don't change this)
+timer.Enabled = true
+
+
+{$asm}
+[DISABLE]
+{$lua}
+if syntaxcheck then return end
+timer.Enabled = false
+timer.destroy()
+writeInteger(Color, -1) --resets color
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>80838</ID>
+              <Description>"Parry Color"</Description>
+              <DropDownList DescriptionOnly="1">0:None
+1:White Phantom
+2:Brighter White Phantom
+3:Brown w/ light blue highlight
+4:Brown w/ light blue highlight
+5:Brown w/ bright pink
+6:Blue w/ yellow highlight
+7:Blue w/ yellow highlight brighter
+8:Bright teal
+9:Bright teal
+10:Bright teal w/ white
+11:Bright teal
+12:Less white phantom
+13:Purple highlights
+14:Slightly darker white phantom
+15:Visible ghost
+16:White phantom
+17:Player ghost
+18:Solid Teal
+19:Bright teal
+20:Bright yellow
+21:Bright Orange
+22:Bright Purple
+23:Bright Green
+24:Bright Reddish Orange
+25:Dark teal
+26:Dark teal
+27:White phantom
+28:Blue-ish white phantom
+29:Bright White
+30:Dark Blue
+31:Transparent Fog Ghost
+32:Actual Player Ghost
+33:Washed out Purple
+34:Normal
+35:Orange Under-tone
+36:Orange undertone+highlight
+37:Normal
+38:Normal
+39:Normal
+40:Ghost
+41:Invisible
+42:SOLID WHITE
+43:Bonfire ghost
+44:Normal
+45:nil
+46:nil
+47:nil
+48:nil
+49:nil
+50:Bright Light Blue
+51:Light blue
+52:Yellow
+53:Orange
+54:Purple
+55:Green
+56:Reddish-orange
+57:Teal
+58:Teal
+59:Brighter teal
+60:Red Phantom
+61:White Phantom
+62:Player Ghost
+63:Solid white w/ accents
+64:Bright Gold
+65:Gold+Red
+66:Purple+White
+67:Purple+Red
+68:Teal+White
+69:Green+Red
+70:Blue+White
+71:White+Blue
+72:Blue+Gold
+73:Blue+Green
+74:Ghost
+75:Transparent
+76:Ghost
+77:Normal
+78:nil
+79:nil
+80:White
+81:Red Phantom
+82:Dark Blue
+83:Blue+White
+84:nil
+85:Sunlight Bro
+86:Sunlight bro+red phantom
+87:Mad Phantom
+88:Mad Phantom
+89:Red Phantom
+90:Bright BLUE
+91:Teal+Red
+92:Washed out orange
+93:nil
+94:nil
+95:nil
+96:nil
+97:nil
+98:nil
+99:nil
+100:nil
+101: dark White Phantom
+102:White Phantom
+103:Solid blue w/ orange
+104:Bright solid blue w/ orange
+105:Bright teal w/ highlights
+106:Brighter teal w/ highlights
+107:Bright teal w/ white
+108:Even brighter
+109:Brighter still
+110:nil
+111:nil
+112:nil
+113:nil
+114:nil
+170: Blue + White
+181:Transparent Red Phantom
+201:Black w/ white highlight
+202:Grey w/ white highlight
+203:Dark Brown
+204:Bright Blue
+205:Bright Teal
+206:Brighter teal
+207:Bright teal w/white
+208:Very bright white teal
+209:Mostly transparent white ghost
+</DropDownList>
+              <VariableType>4 Bytes</VariableType>
+              <Address>ParryColor</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>80839</ID>
+              <Description>"Block Color"</Description>
+              <DropDownList DescriptionOnly="1">0:None
+1:White Phantom
+2:Brighter White Phantom
+3:Brown w/ light blue highlight
+4:Brown w/ light blue highlight
+5:Brown w/ bright pink
+6:Blue w/ yellow highlight
+7:Blue w/ yellow highlight brighter
+8:Bright teal
+9:Bright teal
+10:Bright teal w/ white
+11:Bright teal
+12:Less white phantom
+13:Purple highlights
+14:Slightly darker white phantom
+15:Visible ghost
+16:White phantom
+17:Player ghost
+18:Solid Teal
+19:Bright teal
+20:Bright yellow
+21:Bright Orange
+22:Bright Purple
+23:Bright Green
+24:Bright Reddish Orange
+25:Dark teal
+26:Dark teal
+27:White phantom
+28:Blue-ish white phantom
+29:Bright White
+30:Dark Blue
+31:Transparent Fog Ghost
+32:Actual Player Ghost
+33:Washed out Purple
+34:Normal
+35:Orange Under-tone
+36:Orange undertone+highlight
+37:Normal
+38:Normal
+39:Normal
+40:Ghost
+41:Invisible
+42:SOLID WHITE
+43:Bonfire ghost
+44:Normal
+45:nil
+46:nil
+47:nil
+48:nil
+49:nil
+50:Bright Light Blue
+51:Light blue
+52:Yellow
+53:Orange
+54:Purple
+55:Green
+56:Reddish-orange
+57:Teal
+58:Teal
+59:Brighter teal
+60:Red Phantom
+61:White Phantom
+62:Player Ghost
+63:Solid white w/ accents
+64:Bright Gold
+65:Gold+Red
+66:Purple+White
+67:Purple+Red
+68:Teal+White
+69:Green+Red
+70:Blue+White
+71:White+Blue
+72:Blue+Gold
+73:Blue+Green
+74:Ghost
+75:Transparent
+76:Ghost
+77:Normal
+78:nil
+79:nil
+80:White
+81:Red Phantom
+82:Dark Blue
+83:Blue+White
+84:nil
+85:Sunlight Bro
+86:Sunlight bro+red phantom
+87:Mad Phantom
+88:Mad Phantom
+89:Red Phantom
+90:Bright BLUE
+91:Teal+Red
+92:Washed out orange
+93:nil
+94:nil
+95:nil
+96:nil
+97:nil
+98:nil
+99:nil
+100:nil
+101: dark White Phantom
+102:White Phantom
+103:Solid blue w/ orange
+104:Bright solid blue w/ orange
+105:Bright teal w/ highlights
+106:Brighter teal w/ highlights
+107:Bright teal w/ white
+108:Even brighter
+109:Brighter still
+110:nil
+111:nil
+112:nil
+113:nil
+114:nil
+170: Blue + White
+181:Transparent Red Phantom
+201:Black w/ white highlight
+202:Grey w/ white highlight
+203:Dark Brown
+204:Bright Blue
+205:Bright Teal
+206:Brighter teal
+207:Bright teal w/white
+208:Very bright white teal
+209:Mostly transparent white ghost
+</DropDownList>
+              <VariableType>4 Bytes</VariableType>
+              <Address>BlockColor</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>1</ID>
+              <Description>"Hyper Armor Color"</Description>
+              <DropDownList DescriptionOnly="1">0:None
+1:White Phantom
+2:Brighter White Phantom
+3:Brown w/ light blue highlight
+4:Brown w/ light blue highlight
+5:Brown w/ bright pink
+6:Blue w/ yellow highlight
+7:Blue w/ yellow highlight brighter
+8:Bright teal
+9:Bright teal
+10:Bright teal w/ white
+11:Bright teal
+12:Less white phantom
+13:Purple highlights
+14:Slightly darker white phantom
+15:Visible ghost
+16:White phantom
+17:Player ghost
+18:Solid Teal
+19:Bright teal
+20:Bright yellow
+21:Bright Orange
+22:Bright Purple
+23:Bright Green
+24:Bright Reddish Orange
+25:Dark teal
+26:Dark teal
+27:White phantom
+28:Blue-ish white phantom
+29:Bright White
+30:Dark Blue
+31:Transparent Fog Ghost
+32:Actual Player Ghost
+33:Washed out Purple
+34:Normal
+35:Orange Under-tone
+36:Orange undertone+highlight
+37:Normal
+38:Normal
+39:Normal
+40:Ghost
+41:Invisible
+42:SOLID WHITE
+43:Bonfire ghost
+44:Normal
+45:nil
+46:nil
+47:nil
+48:nil
+49:nil
+50:Bright Light Blue
+51:Light blue
+52:Yellow
+53:Orange
+54:Purple
+55:Green
+56:Reddish-orange
+57:Teal
+58:Teal
+59:Brighter teal
+60:Red Phantom
+61:White Phantom
+62:Player Ghost
+63:Solid white w/ accents
+64:Bright Gold
+65:Gold+Red
+66:Purple+White
+67:Purple+Red
+68:Teal+White
+69:Green+Red
+70:Blue+White
+71:White+Blue
+72:Blue+Gold
+73:Blue+Green
+74:Ghost
+75:Transparent
+76:Ghost
+77:Normal
+78:nil
+79:nil
+80:White
+81:Red Phantom
+82:Dark Blue
+83:Blue+White
+84:nil
+85:Sunlight Bro
+86:Sunlight bro+red phantom
+87:Mad Phantom
+88:Mad Phantom
+89:Red Phantom
+90:Bright BLUE
+91:Teal+Red
+92:Washed out orange
+93:nil
+94:nil
+95:nil
+96:nil
+97:nil
+98:nil
+99:nil
+100:nil
+101: dark White Phantom
+102:White Phantom
+103:Solid blue w/ orange
+104:Bright solid blue w/ orange
+105:Bright teal w/ highlights
+106:Brighter teal w/ highlights
+107:Bright teal w/ white
+108:Even brighter
+109:Brighter still
+110:nil
+111:nil
+112:nil
+113:nil
+114:nil
+170: Blue + White
+181:Transparent Red Phantom
+201:Black w/ white highlight
+202:Grey w/ white highlight
+203:Dark Brown
+204:Bright Blue
+205:Bright Teal
+206:Brighter teal
+207:Bright teal w/white
+208:Very bright white teal
+209:Mostly transparent white ghost
+</DropDownList>
+              <VariableType>4 Bytes</VariableType>
+              <Address>HyperColor</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>3</ID>
+              <Description>"iFrames Color"</Description>
+              <DropDownList DescriptionOnly="1">0:None
+1:White Phantom
+2:Brighter White Phantom
+3:Brown w/ light blue highlight
+4:Brown w/ light blue highlight
+5:Brown w/ bright pink
+6:Blue w/ yellow highlight
+7:Blue w/ yellow highlight brighter
+8:Bright teal
+9:Bright teal
+10:Bright teal w/ white
+11:Bright teal
+12:Less white phantom
+13:Purple highlights
+14:Slightly darker white phantom
+15:Visible ghost
+16:White phantom
+17:Player ghost
+18:Solid Teal
+19:Bright teal
+20:Bright yellow
+21:Bright Orange
+22:Bright Purple
+23:Bright Green
+24:Bright Reddish Orange
+25:Dark teal
+26:Dark teal
+27:White phantom
+28:Blue-ish white phantom
+29:Bright White
+30:Dark Blue
+31:Transparent Fog Ghost
+32:Actual Player Ghost
+33:Washed out Purple
+34:Normal
+35:Orange Under-tone
+36:Orange undertone+highlight
+37:Normal
+38:Normal
+39:Normal
+40:Ghost
+41:Invisible
+42:SOLID WHITE
+43:Bonfire ghost
+44:Normal
+45:nil
+46:nil
+47:nil
+48:nil
+49:nil
+50:Bright Light Blue
+51:Light blue
+52:Yellow
+53:Orange
+54:Purple
+55:Green
+56:Reddish-orange
+57:Teal
+58:Teal
+59:Brighter teal
+60:Red Phantom
+61:White Phantom
+62:Player Ghost
+63:Solid white w/ accents
+64:Bright Gold
+65:Gold+Red
+66:Purple+White
+67:Purple+Red
+68:Teal+White
+69:Green+Red
+70:Blue+White
+71:White+Blue
+72:Blue+Gold
+73:Blue+Green
+74:Ghost
+75:Transparent
+76:Ghost
+77:Normal
+78:nil
+79:nil
+80:White
+81:Red Phantom
+82:Dark Blue
+83:Blue+White
+84:nil
+85:Sunlight Bro
+86:Sunlight bro+red phantom
+87:Mad Phantom
+88:Mad Phantom
+89:Red Phantom
+90:Bright BLUE
+91:Teal+Red
+92:Washed out orange
+93:nil
+94:nil
+95:nil
+96:nil
+97:nil
+98:nil
+99:nil
+100:nil
+101: dark White Phantom
+102:White Phantom
+103:Solid blue w/ orange
+104:Bright solid blue w/ orange
+105:Bright teal w/ highlights
+106:Brighter teal w/ highlights
+107:Bright teal w/ white
+108:Even brighter
+109:Brighter still
+110:nil
+111:nil
+112:nil
+113:nil
+114:nil
+170: Blue + White
+181:Transparent Red Phantom
+201:Black w/ white highlight
+202:Grey w/ white highlight
+203:Dark Brown
+204:Bright Blue
+205:Bright Teal
+206:Brighter teal
+207:Bright teal w/white
+208:Very bright white teal
+209:Mostly transparent white ghost
+</DropDownList>
+              <VariableType>4 Bytes</VariableType>
+              <Address>iFrameColor</Address>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>80840</ID>
+          <Description>"Debug"</Description>
+          <Options moHideChildren="1"/>
+          <LastState Value="" RealAddress="00000000"/>
+          <Color>919191</Color>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>7</ID>
+              <Description>"host color"</Description>
+              <DropDownList DescriptionOnly="1">0:None
+1:White Phantom
+2:Brighter White Phantom
+3:Brown w/ light blue highlight
+4:Brown w/ light blue highlight
+5:Brown w/ bright pink
+6:Blue w/ yellow highlight
+7:Blue w/ yellow highlight brighter
+8:Bright teal
+9:Bright teal
+10:Bright teal w/ white
+11:Bright teal
+12:Less white phantom
+13:Purple highlights
+14:Slightly darker white phantom
+15:Visible ghost
+16:White phantom
+17:Player ghost
+18:Solid Teal
+19:Bright teal
+20:Bright yellow
+21:Bright Orange
+22:Bright Purple
+23:Bright Green
+24:Bright Reddish Orange
+25:Dark teal
+26:Dark teal
+27:White phantom
+28:Blue-ish white phantom
+29:Bright White
+30:Dark Blue
+31:Transparent Fog Ghost
+32:Actual Player Ghost
+33:Washed out Purple
+34:Normal
+35:Orange Under-tone
+36:Orange undertone+highlight
+37:Normal
+38:Normal
+39:Normal
+40:Ghost
+41:Invisible
+42:SOLID WHITE
+43:Bonfire ghost
+44:Normal
+45:nil
+46:nil
+47:nil
+48:nil
+49:nil
+50:Bright Light Blue
+51:Light blue
+52:Yellow
+53:Orange
+54:Purple
+55:Green
+56:Reddish-orange
+57:Teal
+58:Teal
+59:Brighter teal
+60:Red Phantom
+61:White Phantom
+62:Player Ghost
+63:Solid white w/ accents
+64:Bright Gold
+65:Gold+Red
+66:Purple+White
+67:Purple+Red
+68:Teal+White
+69:Green+Red
+70:Blue+White
+71:White+Blue
+72:Blue+Gold
+73:Blue+Green
+74:Ghost
+75:Transparent
+76:Ghost
+77:Normal
+78:nil
+79:nil
+80:White
+81:Red Phantom
+82:Dark Blue
+83:Blue+White
+84:nil
+85:Sunlight Bro
+86:Sunlight bro+red phantom
+87:Mad Phantom
+88:Mad Phantom
+89:Red Phantom
+90:Bright BLUE
+91:Teal+Red
+92:Washed out orange
+93:nil
+94:nil
+95:nil
+96:nil
+97:nil
+98:nil
+99:nil
+100:nil
+101: dark White Phantom
+102:White Phantom
+103:Solid blue w/ orange
+104:Bright solid blue w/ orange
+105:Bright teal w/ highlights
+106:Brighter teal w/ highlights
+107:Bright teal w/ white
+108:Even brighter
+109:Brighter still
+110:nil
+111:nil
+112:nil
+113:nil
+114:nil
+170: Blue + White
+181:Transparent Red Phantom
+201:Black w/ white highlight
+202:Grey w/ white highlight
+203:Dark Brown
+204:Bright Blue
+205:Bright Teal
+206:Brighter teal
+207:Bright teal w/white
+208:Very bright white teal
+209:Mostly transparent white ghost
+</DropDownList>
+              <VariableType>4 Bytes</VariableType>
+              <Address>Param</Address>
+              <Offsets>
+                <Offset>434</Offset>
+                <Offset>68</Offset>
+                <Offset>68</Offset>
+                <Offset>13D8</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>8</ID>
+              <Description>"super armor"</Description>
+              <VariableType>Float</VariableType>
+              <Address>DarkSoulsIII.exe+4768E78</Address>
+              <Offsets>
+                <Offset>2C</Offset>
+                <Offset>48</Offset>
+                <Offset>1F90</Offset>
+                <Offset>80</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>80832</ID>
+              <Description>"iFrames (Read Only)"</Description>
+              <VariableType>Binary</VariableType>
+              <BitStart>1</BitStart>
+              <BitLength>1</BitLength>
+              <ShowAsBinary>0</ShowAsBinary>
+              <Address>BaseB</Address>
+              <Offsets>
+                <Offset>58</Offset>
+                <Offset>0</Offset>
+                <Offset>1F90</Offset>
+                <Offset>80</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>80833</ID>
+              <Description>"Parry (Read Only)"</Description>
+              <VariableType>Binary</VariableType>
+              <BitStart>2</BitStart>
+              <BitLength>1</BitLength>
+              <ShowAsBinary>0</ShowAsBinary>
+              <Address>BaseB</Address>
+              <Offsets>
+                <Offset>58</Offset>
+                <Offset>0</Offset>
+                <Offset>1F90</Offset>
+                <Offset>80</Offset>
+              </Offsets>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>86680</ID>
+      <Description>"Table Info"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+{$lua}
+UDF1.Show()
+[DISABLE]
+{$lua}
+UDF1.Hide()
+
+</AssemblerScript>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols>
+    <SymbolEntry>
+      <Name>ParryColor</Name>
+      <Address>00600000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>BlockColor</Name>
+      <Address>00600010</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>HyperColor</Name>
+      <Address>00600020</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>iFrameColor</Name>
+      <Address>00600030</Address>
+    </SymbolEntry>
+  </UserdefinedSymbols>
+</CheatTable>
