@@ -13,11 +13,11 @@ You will need Cheat Engine version 6.6 or higher.
 2. Attach the table (.CT file) to the DarkSoulsIII.exe process
 3. Click the boxes next to the script you'd like to use in the section below to activate
 
-For color, 0 is none. You can choose colors 1-100 as a value to change the visual of each frame type. (will add dropdown list later)
+Double click the value to open the dropdown box for color selection.
 
 
 ### Current Features:
-- Customizable colors for displaying frame data (#1-100 are valid values for color)
+- Customizable colors for displaying frame data
 - i-Frames Indicator
 - Super Armor Indicator
 - Blocking Indicator
