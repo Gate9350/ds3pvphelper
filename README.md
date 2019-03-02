@@ -1,5 +1,6 @@
 # Dark Souls 3 PVP Helper v0.1
 ###### Special thanks to The Grim Sleeper, Gate, and Loki for their ideas and contributions
+###### You can contact me on my Discord: https://discord.gg/naWBtMX
 
 This is a pre-release version to fulfill the wishes of those that requested it, it has missing features and is not as refined as I would like it to be. This means it currently only works properly if YOU are the host and it only displays YOUR frame data and not other players. (If you invade with this script enabled it will change the host's colors relative to your own frame data)
 
