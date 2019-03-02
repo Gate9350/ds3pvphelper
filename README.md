@@ -1,4 +1,5 @@
 # Dark Souls 3 PVP Helper v0.1
+###### Special thanks to The Grim Sleeper, Gate, and Loki for their ideas and contributions
 
 This is a pre-release version to fulfill the wishes of those that requested it, it has missing features and is not as refined as I would like it to be. This means it currently only works properly if YOU are the host and it only displays YOUR frame data and not other players. (If you invade with this script enabled it will change the host's colors relative to your own frame data)
 
@@ -35,16 +36,22 @@ Double click the value to open the dropdown box for color selection.
 - Map hitbox visualizer - (I already have this)
 - Indicating frames regardless of the role of your character
 - Indicating other player's frame data (may only work partially)
-- Convert to assembly (maybe)
+- Convert to assembly (if flicker is removed this way)
 
 
 ### Known issues:
-- Colors flicker occasionally due to the way the game updates values. Technically the most accurate depiction of when flags are active or not.
+- Colors flicker occasionally either due to the way the values being read are updated or due to LUA, chances are it's LUA.
 - Allegedly the super armor indicator doesn't always work, like on some attacks that have super armor it wont recognize it idk tho cuz I gotta test that
 
 
 
 
 #### Changelog:
+###### v0.1a Changes
+- Tidied up dropdown lists + added colors
+- Removed keybind I left behind accidentally
+- Replaced initializer script with much neater/smaller version
 
-- v0.1 Released
+
+
+###### v0.1 Released
