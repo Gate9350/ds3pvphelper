@@ -47,9 +47,15 @@ globalalloc(iFrameColor,4)
 if syntaxcheck then return end
 
   local ParryiFrameBinary = "[[[[BaseB]+80]+1F90]+0]+58"
-  local Color = "[[[[Param]+13D8]+68]+68]+434"
+  local Color = "[[[[Param]+4F0]+68]+68]+9048"
   local SuperArmorDurab = "[[[[BaseB]+80]+1F90]+48]+2C"
 
+writeBytes("[[[[DarkSoulsIII.exe+4782838]+4F0]+68]+68]+9045",2)--looks ugly but
+writeInteger("[[[[DarkSoulsIII.exe+4782838]+4A8]+68]+68]+1BA70+128",41) --feel free
+writeInteger("[[[[DarkSoulsIII.exe+4782838]+4A8]+68]+68]+1BD90+170",113)--to replace
+writeFloat("[[[[DarkSoulsIII.exe+4782838]+4A8]+68]+68]+1BD90+8",-1)--the base with "Param"
+            
+            
 function loop(timer)
 
   Parry = readBytes(ParryiFrameBinary,1)
@@ -89,6 +95,10 @@ if syntaxcheck then return end
 timer.Enabled = false
 timer.destroy()
 writeInteger(Color, -1) --resets color
+writeBytes("[[[[DarkSoulsIII.exe+4782838]+4F0]+68]+68]+9045",0)
+writeInteger("[[[[DarkSoulsIII.exe+4782838]+4A8]+68]+68]+1BA70+128",-1)
+writeInteger("[[[[DarkSoulsIII.exe+4782838]+4A8]+68]+68]+1BD90+170",-1)
+writeFloat("[[[[DarkSoulsIII.exe+4782838]+4A8]+68]+68]+1BD90+8",4)
 </AssemblerScript>
           <CheatEntries>
             <CheatEntry>
